@@ -1,0 +1,40 @@
+<html> 
+<head> 
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/main.css">
+    <script type=text/javascript src="{{ url_for('static', filename='jquery-3.2.1.min.js') }}"></script>
+    <script type=text/javascript>
+        $(function() {
+            $('button#register').click(function() {
+                alert('click');
+                $.ajax({
+                    url: '/register',
+                    data: $('#frm').serialize(),
+                    type: 'POST',
+                    dataType : 'json',
+                    success: function(response) {
+                        alert(response.results.user);
+                        alert(response.results.pass);
+                    },
+                    error: function(error) {
+                        alert(error);
+                    }
+                });
+            });
+        });
+    </script>
+
+</head>
+
+
+<body>
+<h1>Form Example</h1>
+    <form id="frm" action="/form" method="post">
+        <input type="email" name="username" required autofocus>
+        <input type="password" name="password" required>
+        <button id="register", type="button">Register</button>
+    </form>
+</body>
+
+</html>
+

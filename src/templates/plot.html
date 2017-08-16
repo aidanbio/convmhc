@@ -1,0 +1,40 @@
+<html> 
+<head> 
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" href="/static/jquery-ui.css">
+    <script src="/static/jquery-1.12.4.js"></script>
+    <script src="/static/jquery-ui.js"></script>
+    <script type=text/javascript>
+        $(function() {
+            $('button#plot').click(function() {
+                $.ajax({
+                    url: '/plot.png',
+                    target: 'imgFrame',
+                    data: $('#frm').serialize(),
+                    type: 'POST',
+                    <!--dataType : 'json',-->
+                    success: function(response) {
+                        $('iframe#imgFrame').html(response);
+                    },
+                    error: function(error) {
+                        alert(error);
+                    }
+                });
+            });
+        });
+    </script>
+
+</head>
+
+
+<body>
+<h1>Plot Example</h1>
+    <form id="frm" action="/form" method="post", target="_blank">
+        <button id="plot", type="button">Plot</button>
+    </form>
+<iframe id="imgFrame" src="" name="imgFrame"></iframe>
+</body>
+
+</html>
+

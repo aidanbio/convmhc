@@ -1,0 +1,105 @@
+,Desc,Title,Ref
+MICC010101,"Optimization-derived potential
+","Learning effective amino acid interactions through iterative
+stochastic techniques
+","Proteins 42, 422-431 (2001)
+"
+SKOJ000101,"Statistical quasichemical potential with the partially composition-corrected
+pair scale
+","Derivation of protein-specific pair potentials based on weak sequence
+fragment similarity
+","Proteins 38, 3-16 (2000)
+"
+SIMK990104,"Distance-dependent statistical potential (contacts within 10-12 Angstrooms)
+","Improved recognition of native-like protein structures using
+a combination of sequence-dependent and sequence-independent
+features of proteins
+","Proteins 34, 82-95 (1999)
+"
+ZHAC000101,"Environment-dependent residue contact energies (rows = helix, cols = helix)
+","Environment-dependent residue contact energies for proteins
+","Proc. Natl. Acad. Sci. USA 97, 2550-2555 (2000)
+"
+MIYS990107,"Quasichemical energy of interactions in an average buried environment
+","Self-consistent estimation of inter-residue protein contact energies
+based on an equilibrium mixture approximation of residues
+","Proteins 34, 49-68 (1999)
+"
+BONM030105,"Distances between centers of interacting side chains in the intermediate
+orientation
+","Protein fragment reconstruction using various modeling techniques
+","J. Comput. Aided Mol. Des. 17, 725-738 (2003)
+"
+BONM030102,"Quasichemical statistical potential for the intermediate orientation of
+interacting side groups
+","Protein fragment reconstruction using various modeling techniques
+","J. Comput. Aided Mol. Des. 17, 725-738 (2003)
+"
+BONM030106,"Distances between centers of interacting side chains in the parallel
+orientation
+","Protein fragment reconstruction using various modeling techniques
+","J. Comput. Aided Mol. Des. 17, 725-738 (2003)
+"
+MOOG990101,"Quasichemical potential derived from interfacial regions of protein-protein
+complexes
+","Use of pair potentials across protein interfaces in screening predicted
+docked complexes
+","Proteins 35, 364-373 (1999)
+"
+THOP960101,"Mixed quasichemical and optimization-based protein contact potential
+","An iterative method for extracting energy-like quantities 
+from protein structures
+","Proc. Natl. Acad. Sci. USA 93, 11628-11633 (1996)
+"
+KESO980102,"Quasichemical energy in an average protein environment derived from interfacial
+regions of protein-protein complexes
+","Empirical solvent-mediated potentials hold for both intra-molecular
+and inter-molecular inter-residue interactions
+","Protein Science 7, 2578-2586 (1998)
+"
+TANS760102,"Number of contacts between side chains derived from 25 x-ray protein structures
+","Medium- and long-range interaction parameters between amino acids
+for predicting three-dimensional structures of proteins
+","Macromolecules 9, 945-950 (1976)
+"
+SIMK990105,"Distance-dependent statistical potential (contacts longer than 12 Angstrooms)
+","Improved recognition of native-like protein structures using
+a combination of sequence-dependent and sequence-independent
+features of proteins
+","Proteins 34, 82-95 (1999)
+"
+TOBD000102,"Optimization-derived potential obtained for large set of decoys
+","On the design and analysis of protein folding potentials
+","Proteins 40, 71-85 (2000)
+"
+TOBD000101,"Optimization-derived potential obtained for small set of decoys
+","On the design and analysis of protein folding potentials
+","Proteins 40, 71-85 (2000)
+"
+SIMK990103,"Distance-dependent statistical potential (contacts within 7.5-10 Angstrooms)
+","Improved recognition of native-like protein structures using
+a combination of sequence-dependent and sequence-independent
+features of proteins
+","Proteins 34, 82-95 (1999)
+"
+BRYS930101,"Distance-dependent statistical potential (only energies of contacts within
+ 0-5 Angstrooms are included)
+","An Empirical Energy Function for Threading Protein-Sequence Through the
+Folding Motif
+","Proteins 16, 92-112 (1993)
+"
+VENM980101,"Statistical potential derived by the maximization of the perceptron criterion
+","Pairwise contact potentials are unsuitable for protein folding
+","J. Chem. Phys. 109, 11101-11108 (1998)
+"
+KOLA930101,"Statistical potential derived by the quasichemical approximation
+","A general method for the prediction of the three dimensional structure
+and folding pathway of globular proteins: Application to designed helical
+proteins
+","J. Chem. Phys. 98, 7420-7433 (1993)
+"
+BONM030104,"Distances between centers of interacting side chains in the antiparallel
+orientation
+","Protein fragment reconstruction using various modeling techniques
+","J. Comput. Aided Mol. Des. 17, 725-738 (2003)
+"

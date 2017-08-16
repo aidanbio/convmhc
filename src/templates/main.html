@@ -1,0 +1,234 @@
+<html> 
+<head> 
+    <title>ConvMHC-a web server for peptide-MHC class I binding predictions using deep convolution neural networks</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='jquery.mloading.css') }}">
+    <script src="{{ url_for('static', filename='jquery-1.12.4.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery-ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery.mloading.js') }}"></script>
+
+    <script type=text/javascript>
+        $( function() {
+            $( "#dialog" ).dialog({
+                autoOpen: false,
+                width: 630,
+                height: 300,
+    //            resizable: false,
+                modal: true
+    //          show: {
+    //            effect: "blind",
+    //            duration: 1000
+    //          },
+    //          hide: {
+    //            effect: "explode",
+    //            duration: 1000
+    //          }
+            });
+
+            $('button#btnPredict').click(function() {
+                $.ajax({
+                    url: '/predict',
+                    data: $('#inputFrm').serialize(),
+                    type: 'POST',
+                    dataType : 'json',
+                    beforeSend: function(){
+                        $("body").mLoading('show');
+                    },
+                    success: function(response) {
+                        clearPredResults();
+                        insertPredResults(response.results.pred_results);
+                        $("body").mLoading('hide');
+                    },
+                    error: function(request, status, error) {
+                        <!--alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);-->
+                        alert(request.responseText);
+                        $("body").mLoading('hide');
+                    }
+                });
+            });
+
+        });
+        
+        $("body").mLoading({
+            text: "Please Wait...",
+            mask: true
+        });
+
+        $(document).delegate('#textPepSeqs', 'keydown', function(e) {
+          var keyCode = e.keyCode || e.which;
+
+          if (keyCode == 9) {
+            e.preventDefault();
+            var start = $(this).get(0).selectionStart;
+            var end = $(this).get(0).selectionEnd;
+
+            // set textarea value to: text before caret + tab + text after caret
+            $(this).val($(this).val().substring(0, start)
+                        + "\t"
+                        + $(this).val().substring(end));
+
+            // put caret at right position again
+            $(this).get(0).selectionStart =
+            $(this).get(0).selectionEnd = start + 1;
+          }
+        });
+
+        clearPredResults = function(){
+            $("#resultTab > tbody").html("");
+        }
+
+        showInfomativeImg = function(i){
+            var allele = $("#allele" + i).val();
+            var pepSeq = $("#pepSeq" + i).val();
+            var binder = $("#binder" + i).val();
+            var imgData = $("#bindImg" + i).val();
+            $("input[name='target_img']").val(imgData);
+            $("input[name='target_allele']").val(allele);
+            $("input[name='target_pepseq']").val(pepSeq);
+            $("input[name='target_binder']").val(binder);
+
+            $("#genImgFrm").submit();
+            $("body").mLoading('show');
+
+            $("iframe#imgFrame").load(function(){
+                $("iframe#imgFrame").css('width', '615px');
+                $("iframe#imgFrame").css('height', '200px');
+                $("span#infImgCaption").text("Note: red and blue intensities indicate the degree of contribution to " +
+                                              (binder == 1? 'binder': 'non-binder') + " and " +
+                                              (binder == 1? 'non-binder': 'binder') + ", respectively.");
+                $("#dialog").dialog("option", "title", "Informative Pixels for " + pepSeq + "-" + allele + "(" + (binder == 1? 'Binder': 'Non-binder') + ")");
+                $("#dialog").dialog("open");
+                $("body").mLoading('hide');
+            });
+        }
+
+        insertPredResults = function(results){
+
+            for(var i=0; i<results.length; i++){
+                allele = results[i].allele
+                pepSeq = results[i].pep_seq
+                binderProb = results[i].binder_prob
+                binder = results[i].binder
+                bindImg = results[i].bind_img
+                bindImgId = 'bindImg' + i
+                var htmlRow = "<tr class='resultData'><td>" + allele + "</td>" +
+                                  "<input id='allele" + i + "' type='hidden'>" +
+                                  "<td>" + pepSeq + "</td>" +
+                                  "<input id='pepSeq" + i + "' type='hidden'>" +
+                                  "<td>" + binderProb + "</td>" +
+                                  "<input id='binderProb" + i + "' type='hidden'>" +
+                                  "<td>" + binder + "</td>" +
+                                  "<input id='binder" + i + "' type='hidden'>" +
+                                  "<input id='bindImg" + i + "' type='hidden'>" +
+                                  "<td>" + "<button onclick='showInfomativeImg(" + i + ");'>view</button>" + "</td></tr>";
+                $('#resultTab > tbody:last').append(htmlRow);
+                
+                $('#allele' + i).val(allele);
+                $('#pepSeq' + i).val(pepSeq);
+                $('#binderProb' + i).val(binderProb);
+                $('#binder' + i).val(binder);
+                $('#bindImg' + i).val(JSON.stringify(bindImg));
+            }
+        }
+
+    </script>
+</head>
+<body>
+<table id="mainTab" border="0">
+    <tr>
+        <td id="header" colspan="2">
+            <span class="title">ConvMHC</span><br>
+            <span class="subtitle"> A web server for peptide-MHC class I binding predictions using deep convolutional neural networks</span>
+        </td>
+    </tr>
+    <tr><td colspan="2" class="vspace"></td></tr>
+    <tr>
+        <td class="tabCaption">Inputs</td>
+        <td class="tabCaption">Prediction results</td>
+    </tr>
+    <tr>
+        <td valign="top" style="height: 200px;">
+            <form id="inputFrm" action="/" method="post">
+            <table id="inputTab">
+                <tr>
+                    <td class="inputLabel">
+                        Enter peptide sequence(s) in FASTA format or separated by whitespace or comma:
+                    </td>
+                    <td class="inputValue">
+                        <textarea id="textPepSeqs" name="peptide_seqs" rows="15" cols="35"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="inputLabel">Select MHC allele:</td>
+                    <td class="inputValue">
+                        <select name="allele">
+                            {% for allele in data.alleles %}
+                            <option value="{{allele}}">{{allele}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="inputLabel">Peptide length:</td>
+                    <td class="inputValue">
+                        <select name="peptide_len">
+                            {% for pep_len in data.pep_lens %}
+                            <option value={{pep_len}}>{{pep_len}}</option>
+                            {% endfor %}
+                        </select>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="actionButton">
+                        <button id="btnPredict" type="button">Predict</button>&nbsp;<button type="reset">Reset</button>
+                    </td>
+                </tr>
+            </table>
+            </form>
+        </td>
+        <td valign="top" style="height: 400px;">
+            <table id="resultTab">
+                <thead>
+                <tr>
+                    <th>Allele</th>
+                    <th>Peptide</th>
+                    <th>Binder prob.</th>
+                    <th>Binder</th>
+                    <th>Informative pixels</th>
+                </tr>
+                </thead>
+                <!-- tfoot>
+                    <tr><td colspan="5"><button id="btnAddRow">add row</button>&nbsp;<button id="btnClearRows">clear rows</button></td></tr>
+                    
+                </tfoot -->
+                <tbody><tr></tr></tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td id="footer" colspan="2"  valign="top">
+            <span>This website is compatible with Chrome</span>
+        </td>
+    </tr>
+
+</table>
+
+<form id="genImgFrm" action="/generate_inf_img" target="image_frame" method="post">
+    <input type="hidden" name="target_img"/>
+    <input type="hidden" name="target_allele"/>
+    <input type="hidden" name="target_pepseq"/>
+    <input type="hidden" name="target_binder"/>
+</form>
+
+<div id="dialog" title="Informative Pixels">
+    <iframe id="imgFrame" src="" name="image_frame" frameborder="0"></iframe><br><hr style="color: darkgrey;">
+    <span id="infImgCaption">Note:</span>
+</div>
+</body>
+
+</html>
+
