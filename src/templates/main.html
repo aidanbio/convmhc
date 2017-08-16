@@ -96,9 +96,9 @@
             $("iframe#imgFrame").load(function(){
                 $("iframe#imgFrame").css('width', '615px');
                 $("iframe#imgFrame").css('height', '200px');
-                $("span#infImgCaption").text("Note: red and blue intensities indicate the degree of contribution to " +
-                                              (binder == 1? 'binder': 'non-binder') + " and " +
-                                              (binder == 1? 'non-binder': 'binder') + ", respectively.");
+                $("span#infImgCaption").html("Note: <font color='red'>red</font> and <font color='blue'>blue</font> intensities indicate the degree of contribution to <font color='red'><b>" +
+                                              (binder == 1? 'binder': 'non-binder') + "</b></font> and <font color='blue'><b>" +
+                                              (binder == 1? 'non-binder': 'binder') + "</b></font>, respectively.");
                 $("#dialog").dialog("option", "title", "Informative Pixels for " + pepSeq + "-" + allele + "(" + (binder == 1? 'Binder': 'Non-binder') + ")");
                 $("#dialog").dialog("open");
                 $("body").mLoading('hide');
