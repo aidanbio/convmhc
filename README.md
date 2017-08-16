@@ -23,7 +23,7 @@ tar xvfz deeplift-0.4.0-alpha.tgz
 pip install deeplift
 ```
 ## Run ConvMHC web server
-Run _src/main.py_
+Just run _src/main.py_
 ```commandline
 cd src
 python main.py
