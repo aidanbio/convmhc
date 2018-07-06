@@ -18,7 +18,7 @@ import os
 
 # Global context
 app = Flask(__name__)
-model_path = 'datasets/model_AB.h5'
+model_path = 'data/model_AB.h5'
 
 class MyJSONEncoder(JSONEncoder):
     def default(self, obj):
@@ -53,7 +53,7 @@ class PredictionResult(object):
 class PredictionModelWrapper(object):
     def __init__(self, path=None):
         self._model = load_model(path)
-        print 'Kera model loaded.'
+        print 'Keras model loaded.'
 
         self.alleles = self.read_alleles()
         print 'alleles:', self.alleles
