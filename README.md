@@ -31,4 +31,3 @@ python main.py
 Once ConvMHC web server is started, the main web interface is accessible via http://localhost:5000
 
 <hr>
-Next
