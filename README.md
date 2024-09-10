@@ -31,3 +31,6 @@ python main.py
 Once ConvMHC web server is started, the main web interface is accessible via http://localhost:5000
 
 <hr>
+
+## Citation
+Han, Y. & Kim, D. (2017). Deep convolutional neural networks for pan-specific peptide-MHC class I binding prediction. BMC bioinformatics, 18, 1-9.
