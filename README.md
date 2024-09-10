@@ -33,4 +33,4 @@ Once ConvMHC web server is started, the main web interface is accessible via htt
 <hr>
 
 ## Citation
-Han, Y. & Kim, D. (2017). Deep convolutional neural networks for pan-specific peptide-MHC class I binding prediction. BMC bioinformatics, 18, 1-9.
+<a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-017-1997-x">Han, Y. & Kim, D. (2017). Deep convolutional neural networks for pan-specific peptide-MHC class I binding prediction. BMC bioinformatics, 18, 1-9.</a>
